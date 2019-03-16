@@ -7,22 +7,64 @@ var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
-var guessesSoFar = 0;
+var guessesSoFar = [];
+var choices = "";
 
-    // Create variables that hold references to the places in the HTML where we want to display things.
-    var directionsText = document.getElementById("directions-text");
-    var userChoiceText = document.getElementById("userchoice-text");
-    var computerChoiceText = document.getElementById("computerchoice-text");
-    var winsText = document.getElementById("wins-text");
-    var lossesText = document.getElementById("losses-text");
-    var tiesText = document.getElementById("ties-text");
-
-// This function is run whenever the user presses a key.
-    document.onkeyup = function(event) {
-
-// Determines which key was pressed.
-    var userGuess = event.key;
-  
 // Randomly chooses a choice from the options array. This is the Computer's guess.
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+console.log(computerGuess)
+
+// Create variables that hold references to the places in the HTML where we want to display things.
+var winPoints = document.getElementById("wins");
+var lossedPoints = document.getElementById("losses");
+var guessesLeftHtml = document.getElementById("guessesLeft");
+//var guessesSoFar = document.getElementById("guessesSoFar");
+
+// This function is run whenever the user presses a key. unicamente se corre lo que este adentro de estas llaves
+document.onkeyup = function(event) {
+    console.log("User key", event.key);
+
+    var userGuess = event.key;
+    // var n = computerChoices.includes(userGuess)  
+
+
+// ya esta en guessesSoFar?
+    if (guessesSoFar.indexOf(userGuess) >= 0) {
+        return;
+    } else {
+        guessesSoFar.push(userGuess)
+
+    choices = choices + "  " + userGuess;
+
+
+    console.log("Computer Key", computerGuess)
+
+    document.getElementById("guessesSoFar").innerHTML="Guesses so far: " + choices;
+    
+    if (userGuess === computerGuess) {
+        wins++;
+        winPoints.innerHTML = "Wins: " + wins;
+        guessesLeft = 9;
+        guessesSoFar = [];
         
+    } else if (userGuess !== computerGuess) {
+        guessesLeft--;
+        guessesLeftHtml.innerHTML = "Guesses Left: " +  guessesLeft;
+
+    }
+    if (guessesLeft === 0) {
+        losses++;
+        lossedPoints.innerHTML = "losses: " + losses;
+
+        guessesLeft = 9;
+        choices = [];
+        }
+    }
+};
+
+function win() {
+   computerGuess =  computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+}
+
+
