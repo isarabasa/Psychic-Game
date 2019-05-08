@@ -1,0 +1,12 @@
+body { 
+    background: url(../images/background2.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* height: 100%;  */
+    /* width: 100%; */
+    padding : 100px;
+}
+
+#game {
+    font-family: 'Courier New', Courier, monospace !important;
+}
